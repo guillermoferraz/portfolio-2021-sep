@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Suspense, lazy} from 'react'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-function App() {
+//components
+import Home from './Components/Home'
+
+//styles
+//styles                                                                                                               
+import { useTheme } from '@material-ui/core/styles'                                                                    
+import useMediaQuery from '@material-ui/core/useMediaQuery'                                                            
+import styles from './styles'   
+
+
+const App = () => {
+
+  const theme = useTheme()                                                                                           
+  const mobile = useMediaQuery(theme.breakpoints.down('sm'))                                                         
+  const classes = styles({ mobile: mobile })   
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={classes.root}>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+        </Switch>
+      </div>
+  </Router>
   );
 }
 
